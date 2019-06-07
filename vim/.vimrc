@@ -15,12 +15,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'idanarye/vim-merginal'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'klen/python-mode'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'c.vim'
+Plugin 'maxmellon/vim-jsx-pretty'
+
 
 set laststatus=2
 set noshowmode
@@ -33,11 +34,23 @@ set shiftwidth=2
 set backspace=indent,eol,start
 "matching end with dos, just hit %
 runtime macros/matchit.vim
+highlight link xmlEndTag xmlTag
 
-
-let g:airline_powerline_fonts = 1
-let g:solarized_termcolors = 256
-let g:solarized_termtrans=1
+let g:lightline = { 
+ \ 'colorscheme': 'jellybeans',
+ \  'active': {
+ \     'left': [
+ \       ['mode','paste'],
+ \       ['gitbranch','readonly','filename','modified'],
+ \   ]
+ \   },
+ \  'component_function': {
+ \     'gitbranch':'fugitive#head',
+ \  }
+\}
+" Set 'TODO' & 'FIXME' strings to standout
+let g:jellybeans_overrides = { 'Todo': { 'guifg': 'ff4500', 'guibg': 'eeee00', 'ctermfg': '196', 'ctermbg': '226', 'attr': 'standout' }, }
+"set t_Co=256
 
 " Change directory to the current buffer when opening files.
 set autochdir
@@ -98,7 +111,8 @@ nnoremap <C-N> :NERDTreeToggle<CR>
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
-colorscheme solarized
+"colorscheme solarized
+colorscheme jellybeans
 
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
